@@ -22,7 +22,7 @@ for e in ticker.info:
     print(e, ': ', ticker.info[e],'\n')
 priceGraph.threeMonth(tickerInput)
 
-expiry = ticker.options
+expiry = ticker.options #returns options dictionary of all options data sorted by expiry
 count = 1
 optionsList = []
 for e in expiry: #for loop for every options expiration date found
