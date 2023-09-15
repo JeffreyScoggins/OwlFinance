@@ -6,7 +6,7 @@ from datetime import datetime
 plt.style.use('seaborn')
 
 
-def PriceGraph(symbol):
+def threeMonth(symbol):
 
     tk = yf.Ticker(symbol)
 
@@ -14,4 +14,4 @@ def PriceGraph(symbol):
 
     plt.figure
     plt.plot(df['Close'])
-    plt.show()
+    plt.savefig('stock3month.png')
