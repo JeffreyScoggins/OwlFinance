@@ -12,18 +12,17 @@ plt.style.use('seaborn')
 print ('Welcome to FinancePy!\n')
 
 
-ticker = input('Enter your ticker symbol: ')
+tickerInput = input('Enter your ticker symbol: ')
 
 
-ticker = yf.Ticker(ticker)
+ticker = yf.Ticker(tickerInput)
 
-stockList = []
+
 for e in ticker.info:
-    stockList.append(e) #adds new entry to list for every new value found in dictionary
     print(e, ': ', ticker.info[e],'\n')
+priceGraph.threeMonth(tickerInput)
 
-
-expiry = options.option_expiry(entry)
+expiry = ticker.options
 count = 1
 optionsList = []
 for e in expiry: #for loop for every options expiration date found
@@ -33,12 +32,12 @@ for e in expiry: #for loop for every options expiration date found
 expDate = input('Please select the data numbered\nPress E to go back\n')
 
 expiry = int(expDate) - 1
-dfCall = options.options_chain_call(entry, optionsList[expiry])
-dfPut = options.options_chain_put(entry, optionsList[expiry])
+dfCall = options.options_chain_call(tickerInput, optionsList[expiry])
+dfPut = options.options_chain_put(tickerInput, optionsList[expiry])
 #dfPrice = priceGraph.PriceGraph(entry) Shows 6 month line graph
 plt.plot(dfCall['strike'], dfCall['volume'], 'g.-', label="Calls")
 plt.plot(dfPut['strike'], dfPut['volume'], 'r.-', label="Puts")
 plt.xlabel('Strikes')
 plt.ylabel('Volume')
-plt.title('Weekly Call/Put Volume for {}'.format(dfCall['expirationDate'])) 
-plt.show()
+#plt.title('Weekly Call/Put Volume for {}'.format(dfCall['expirationDate'])) 
+plt.savefig('options.png')
